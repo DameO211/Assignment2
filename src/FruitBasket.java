@@ -2,7 +2,7 @@ public class FruitBasket extends Gift {
     private int numOfFruits;
     private boolean citrus;
 
-    public FruitBasket(char id, int size, double price, int numOfFruits, boolean citrus) {
+    public FruitBasket(char id, String size, double price, int numOfFruits, boolean citrus) {
         super(id, size);
         this.numOfFruits = numOfFruits;
         this.citrus = citrus;

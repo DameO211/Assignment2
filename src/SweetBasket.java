@@ -1,7 +1,7 @@
 public class SweetBasket extends Gift {
     private boolean nuts;
 
-    public SweetBasket(char id, int size, double price, boolean nuts) {
+    public SweetBasket(char id, String size, double price, boolean nuts) {
         super(id, size);
         this.nuts = nuts;
     }
