@@ -1,52 +1,45 @@
 public class FruitBasket extends Gift {
+    //Class attributes
     private int numOfFruits;
     private boolean citrus;
 
-    public FruitBasket(char id, String size, double price, int numOfFruits, boolean citrus) {
-        super(id, size);
+    //Constructor
+    public FruitBasket(int id, char size, double price, int numOfFruits, boolean citrus) {
+        super(id, size,price);
         this.numOfFruits = numOfFruits;
         this.citrus = citrus;
     }
 
+/* ######################### GETTERS ############################### */
     public int getNumOfFruits() {
         return numOfFruits;
     }
-
-    public void setNumOfFruits(int numOfFruits) {
-        this.numOfFruits = numOfFruits;
-    }
-
-    public boolean isCitrus() {
+    public boolean getCitrus() {
         return citrus;
     }
 
+
+    /* ##################### SETTERS ################################ */
+    public void setNumOfFruits(int numOfFruits) {
+        this.numOfFruits = numOfFruits;
+    }
     public void setCitrus(boolean citrus) {
         this.citrus = citrus;
     }
 
+
+/* ####################### OVERRIDE METHOD########################### */
+    @Override
+    public double getPrice() {
+        return super.getPrice();
+    }
     @Override
     public String toString() {
-        return "FruitBasket{" +
-                "numOfFruits=" + numOfFruits +
-                ", citrus=" + citrus +
-                '}';
+        return "\n\tFruitBasket\s" +
+                "\n\tid FB-\s" + getId() +
+                "\n\tprice:\s" + getPrice() +
+                "\n\tSize:\s" + getSize() +
+                "\n\tnumOfFruits:" + numOfFruits +
+                "\n\tcitrus:" + citrus+"\n" ;
     }
 }
-
-/* (2) two child classes:
-        FruitBasket additional attributes:
-        number of fruits, include citrus fruits indication (true or false)
-
-        o Fruit basket gift has additional fee of 5.99 when it has citrus fruits.
-         Number of fruits in a basket is as follows:
-        -Small size has 6 fruits, M has 9 fruits, and L has 15 fruits
-        -Each class must have a method to return or display the class’s values to the console
-
-        Your classes must be coded with correct encapsulation:
-        -private/protected attributes,
-        -get methods
-        -set methods
-        -value validation
-        -There should be appropriate overloading and overriding methods
-
- */

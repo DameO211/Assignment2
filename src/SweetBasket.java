@@ -1,24 +1,32 @@
 public class SweetBasket extends Gift {
     private boolean nuts;
 
-    public SweetBasket(char id, String size, double price, boolean nuts) {
-        super(id, size);
+    public SweetBasket(int id, char size, double price, boolean nuts) {
+        super(id, size,price);
         this.nuts = nuts;
     }
 
-    public boolean isNuts() {
+
+    /* *****************GETTER********************************* */
+    public boolean getNuts() {
         return nuts;
     }
 
+
+    /* ******************SETTER********************************* */
     public void setNuts(boolean nuts) {
         this.nuts = nuts;
     }
 
+
+    /* *****************OVERRIDE****************************** */
     @Override
     public String toString() {
-        return "SweetBasket{" +
-                "nuts=" + nuts +
-                '}';
+        return "\n\tSweetBasket\s" +
+                "\n\tid SB-"+ getId()+
+                "\n\tsize:\s"+ getSize()+
+                "\n\tprice:\s"+ getPrice()+
+                "\n\tnuts\s" + nuts+"\n";
     }
 }
 /*

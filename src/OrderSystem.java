@@ -1,107 +1,187 @@
 import java.util.Scanner;
 
-public class OrderSystem extends Gift {
-    Gift basket1 = new Gift();//instance of current order
+public class OrderSystem {
 
-//    public OrderSystem(char id, String size) {
-//        super(id, size);
-//    }
+    static Gift holder = null; //NULL REFERENCE TO GIFT
+    static int orderNum=100;  //ORDER NUMBER STARTING AT 100
 
-    public OrderSystem() { //default constructor used to create to start order
-        super();
+    public static void main(String[] args) {
+        while (true) { //loop to keep program running until user exits
+            System.out.println("""
+                    \t Basket Menu\s
+                    1: Order a gift\s
+                    2: Change a gift\s
+                    3: Display gift\s
+                    4: Exit\s
+                    \s""");
+
+            Scanner userChoice = new Scanner(System.in);
+            int chooseNum = userChoice.nextInt();
+
+            switch (chooseNum) {
+                case 1 -> order();
+                case 2 -> change();
+                case 3 -> display();
+                case 4 -> {
+                    System.out.println("\nThank you for using the program. Goodbye!\n");
+                    System.exit(0);
+                }
+                default -> System.out.println("\nInvalid input\n");
+            }
+        }
     }
 
-    public static void Menu() {
-        System.out.println("\t Fruits \n" + "1: Order a gift \n" + "2: Change a gift \n" +
-                "3: Display gift \n" + "4: Exit \n ");
-    }
-
-    public void choiceMade(int choice) {
-        Scanner c1Input = new Scanner(System.in);
-        int c1choice;
-        boolean citrus = false;
-        
-        switch (choice) {
-            case 1: //preparing order with series of data variables made form user input
+    /* ##################ORIGINAL ORDER##################################*/
+    private static void order() {
+        boolean citrus_included;
+        double price = 0.0;
+        int fruitNum;
+        int choice;
+        Scanner scan = new Scanner(System.in);
 
 
-                System.out.println("Do you want Fruit Basket (1) or Sweets Basket (2): ");
-                c1choice = Integer.parseInt(c1Input.nextLine());
+        System.out.print("Do you want 'Fruit Basket'(1) or 'Sweets Basket'(2): ");
+        choice = scan.nextInt();
 
-                System.out.println("What size do you want: S, M, or L: ");
-                String c1Size = c1Input.nextLine();
-                basket1.setSize(c1Size);
-
-                System.out.println("Do you want citrus fruits included? true/false: ");
-                citrus = c1Input.nextBoolean();
+        System.out.print("What size do you want: S, M, L : ");
+        String str = scan.next();
 
 
-                break;
-            case 2: //update of current order
-                System.out.println("Current gift size is:" + basket1.getSize() + " What size do you want? S, M, or L: ");
-                String sizeEdit = c1Input.nextLine();
-                basket1.setSize(sizeEdit);
-                
-                System.out.println( "Current basket citrus= "+ citrus+ " Do you want citrus fruits included? true/false:");
-                //             problem 3: Current basket citrus=true Do you want citrus fruits/nuts included? true/false:
-                System.out.println("2 working\n");
+        char size = str.charAt(0);
+        switch (size) {
+            case 'S', 's' -> {
+                price += 19.99;
+                fruitNum = 6;
+            }
+            case 'M', 'm' -> {
+                price += 29.99;
+                fruitNum = 9;
+            }
+            case 'L', 'l' -> {
+                price += 39.99;
+                fruitNum = 15;
+            }
+            default -> {
+                System.out.print("\nInvalid input\n");
+                return;
+            }
 
-                //                bookRequest.remove ( );
-                break;
-            case 3: // used to display order
-                System.out.println(basket1.toString()+"\n");
-
-                break;
-            case 4:
-                System.out.println("Goodbye\n");
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + choice);
         }
 
-}
 
+        switch (choice) {
+            case 1 -> {
+                System.out.print("Do you want citrus fruits citrus included? true/false : ");
+                citrus_included = scan.nextBoolean();
+                if (citrus_included) {
+                    price += 5.99;
+                }
+                holder = new FruitBasket(orderNum, size, price, fruitNum, citrus_included);
+                orderNum++;
 
-    //
-    public static void main(String[] args) {
+            }
+            case 2 -> {
+                System.out.print("Do you want nuts citrus included? true/false : ");
+                citrus_included = scan.nextBoolean();
+                holder = new SweetBasket(orderNum, size, price, citrus_included);
+                orderNum++;
 
+            }
+            default -> {
+                System.out.print("\nInvalid input\n");
+            }
+        }
 
-        OrderSystem order = new OrderSystem();
-
-
-        Scanner user_choice = new Scanner(System.in);
-        int choice = 0;
-
-
-
-        do {
-            Menu();
-
-            System.out.println ("\nPlease enter your selection: ");
-            choice = user_choice.nextInt();
-            order.choiceMade(choice);
-
-        } while (choice != 4);
-        user_choice.close();
     }
 
+    /* ###################CHANGE ORDER################################## */
+    private static void change() {
+
+        int choice;
+        boolean citrus_included;
+        char size;
+        String basketSize;
+
+
+
+        if (holder == null) {
+            System.out.println("\n No gift has been ordered yet \n");//If no order is placed to be changed
+            return;
+        }
+        System.out.println("\nCurrent Order : " + holder);
+
+        double price = 0.0;
+        int fruitNum;
+        Scanner scan = new Scanner(System.in);
+
+
+
+        System.out.print("Do you want 'Fruit Basket'(1) or 'Sweets Basket'(2): ");
+
+        choice = scan.nextInt();
+
+        if (holder instanceof FruitBasket) {
+            choice = 1;
+        }
+        if (holder instanceof SweetBasket) {
+            choice = 2;
+        }
+
+        System.out.print("Current Gift size is '" + holder.getSize() + "' What size do you want: S, M, L : ");
+
+
+        basketSize = scan.next();
+        size = basketSize.charAt(0);
+
+        switch (size) {
+            case 'S', 's' -> {
+                price += 19.99;
+                fruitNum = 6;
+            }
+            case 'M', 'm' -> {
+                price += 29.99;
+                fruitNum = 9;
+            }
+            case 'L', 'l' -> {
+                price += 39.99;
+                fruitNum = 15;
+            }
+            default -> {
+                System.out.print("\nInvalid input\n");
+                return;
+            }
+        }
+
+        switch (choice) {
+            case 1 -> {
+                System.out.print("Current Basket citrus=" + ((FruitBasket) holder).getCitrus() + "Do you want citrus fruits citrus included? true/false : ");
+                citrus_included = scan.nextBoolean();
+                if (citrus_included) {
+                    price += 5.99;
+                }
+                holder = new FruitBasket(orderNum, size, price, fruitNum, citrus_included);
+            }
+            case 2 -> {
+                System.out.print("Current Basket nuts=" + ((SweetBasket) holder).getNuts() + "Do you want nuts citrus included? true/false : ");
+                citrus_included = scan.nextBoolean();
+                holder = new SweetBasket(orderNum, size, price, citrus_included);
+            }
+            default -> {
+                System.out.print("\nInvalid input\n");
+                return;
+            }
+        }
+        System.out.print("\nOrder is Changed\n");
+
+    }
+
+
+    /* #####################SHOW ORDER#################################### */
+    public static void display() {
+        if (holder == null) {
+            System.out.println("\n No gift has been ordered yet \n");
+            return;
+        }
+        System.out.println("\nCurrent Order : " + holder.toString());
+    }
 }
-/*
-    OrderSystem should take advantage of the inheritance properties
-    use Gift variable regardless which gift instance as appropriate)
-
-    Style and Documentation
-        (4) Implement OrderSystem class with main method with following functionality:
-         Order a gift
-         Change a gift
-         Display gift
-
-        Your classes must be coded with correct encapsulation:
-        -private/protected attributes,
-        -get methods
-        -set methods
-        -value validation
-        -There should be appropriate overloading and overriding methods
-
-
- */

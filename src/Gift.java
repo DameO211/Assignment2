@@ -1,70 +1,51 @@
+import java.text.DecimalFormat;
+
 public class Gift {
-    private char id;
-    private String size;
+    private int id;
+    private char size;
     private double price;
 
-
-    public Gift(char id, String size) {
+/* ################### CONSTRUCTORS ###################### */
+    public Gift(int id, char size, double price) {
         this.id = id;
         this.size = size;
-
+        this.price = price;
     }
 
-    public Gift() {
 
-    }
+    /* ################ ACCESSOR METHOD #################### */
 
-    public char getId() {
+
+    /* *************GETTERS************** */
+    public int getId() {
         return id;
     }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public String getSize() {
+    public char getSize() {
         return size;
     }
-
-    public void setSize(String sizes) {
-//        if(sizes == "S"){
-//            this.price = 19.99;
-//            this.size = "S";
-//        }if (sizes == "M"){
-//            this.size = "M";
-//            this.price = 29.99;
-//        }if(sizes == "L"){
-//            this.size = "L";
-//            this.price = 39.99;
-//        }else {
-//            this.price = 0.0;
-//        }
-        switch(sizes){
-            case "S":
-                this.price = 19.99;
-                this.size = "S";
-                break;
-            case "M":
-                this.size = "M";
-                this.price = 29.99;
-                break;
-            case "L":
-                this.size = "L";
-                this.price = 39.99;
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + sizes);
-        }
+    public double getPrice() {
+        DecimalFormat df = new DecimalFormat("0.00##");
+        return Double.parseDouble(df.format((price)));
     }
+
+
+    /* *************SETTERS************** */
+    public void setPrice(double prices) {
+        this.price = price;
+    }
+    public void setSize(char size) {
+        this.size = size;
+    }
+
+
+
 
     @Override
     public String toString() {
-        return "Gift{" +
-                "id=" + id +
-                ", size=" + size +
-                ", price=" + price +
-                '}';
+        return "\n\tGift\s" +
+                "\n\tid\s" + id +
+                "\n\tsize\s" + size +
+                "\n\tprice\s" + price ;
     }
 }
 
