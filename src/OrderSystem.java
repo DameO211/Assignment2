@@ -1,4 +1,13 @@
 import java.util.Scanner;
+/*
+DAMEON COLE
+CMIS 242
+ASSIGNMENT 2
+
+DESCRIPTION: JAVA GIFT BASKET ORDERING PROGRAM
+ */
+
+
 
 public class OrderSystem {
 

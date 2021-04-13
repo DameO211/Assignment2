@@ -1,3 +1,12 @@
+/*
+DAMEON COLE
+CMIS 242
+ASSIGNMENT 2
+
+DESCRIPTION: JAVA GIFT BASKET ORDERING PROGRAM
+ */
+
+
 public class FruitBasket extends Gift {
     //Class attributes
     private int numOfFruits;
